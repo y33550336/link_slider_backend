@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package test;
+
+option go_package = "github.com/y33550336/link_slider_backend/pb";
+option csharp_namespace = "LinkSlider.Grpc";
+
+// GameService は Unity と通信するための簡単なサンプルサービスです。
+// - Ping: 接続確認用の簡易 RPC
+// - MovePlayer: プレイヤー移動命令の送受信を示す RPC
+service GameService {
+  // 接続確認。任意の文字列を送り返します。
+  rpc Ping (PingRequest) returns (PingResponse);
+
+  // プレイヤー移動のリクエスト。
+  rpc MovePlayer (MovePlayerRequest) returns (MovePlayerResponse);
+}
+
+message PingRequest {
+  // 任意の確認メッセージ
+  string message = 1;
+}
+
+message PingResponse {
+  // サーバーからの返信メッセージ
+  string message = 1;
+}
+
+message MovePlayerRequest {
+  // プレイヤー識別子
+  string player_id = 1;
+
+  // 移動先座標（例）
+  int32 x = 2;
+  int32 y = 3;
+}
+
+message MovePlayerResponse {
+  // 成否
+  bool ok = 1;
+  // 任意の説明メッセージ
+  string message = 2;
+}
