@@ -1,0 +1,8 @@
+-- +goose Up
+
+CREATE TABLE IF NOT EXISTS players (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    x INT NOT NULL,
+    y INT NOT NULL
+);
