@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
+	"github.com/labstack/echo/v4"
 
 	testgen "github.com/y33550336/link_slider/pb"
 
@@ -36,6 +37,13 @@ func (s *gameServer) MovePlayer(ctx context.Context, req *testgen.MovePlayerRequ
 func main() {
 	grpcServer := grpc.NewServer()
 	reflection.Register(grpcServer)
+
+	e := echo.New()
+	e.GET("/ping", func(c echo.Context) error {
+		return c.String(http.StatusOK, "pong")
+	})
+
+	e.Logger.Fatal(e.Start(":8080"))
 
 	// Register our generated GameService implementation
 	testgen.RegisterGameServiceServer(grpcServer, &gameServer{})
