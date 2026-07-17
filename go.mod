@@ -3,6 +3,7 @@ module github.com/y33550336/link_slider
 go 1.25.7
 
 require (
+	github.com/alecthomas/kong v1.16.0
 	github.com/go-sql-driver/mysql v1.10.0
 	github.com/improbable-eng/grpc-web v0.15.0
 	github.com/jmoiron/sqlx v1.4.0

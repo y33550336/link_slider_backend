@@ -1,6 +1,9 @@
 package config
 
-import "github.com/go-sql-driver/mysql"
+import (
+	"github.com/alecthomas/kong"
+	"github.com/go-sql-driver/mysql"
+)
 
 type Config struct {
 	AppAddr    string `env:"APP_ADDR" default:":8080"`
@@ -13,12 +16,20 @@ type Config struct {
 
 func (c *Config) MySQLConfig() *mysql.Config {
 	return &mysql.Config{
-		User:   c.DBUser,
-		Passwd: c.DBPassword,
-		Net:    "tcp",
-		Addr:   c.DBHost + ":" + c.DBPort,
-		DBName: c.DBName,
+		User:      c.DBUser,
+		Passwd:    c.DBPassword,
+		Net:       "tcp",
+		Addr:      c.DBHost + ":" + c.DBPort,
+		DBName:    c.DBName,
 		Collation: "utf8mb4_general_ci",
 		ParseTime: true,
 	}
+}
+
+func LoadConfig() *Config {
+	var cfg Config
+
+	kong.Parse(&cfg)
+
+	return &cfg
 }

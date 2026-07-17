@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	cfg := &config.Config{}
+	cfg := config.LoadConfig()
 	db, err := database.ConnectToDatabase(cfg.MySQLConfig())
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
