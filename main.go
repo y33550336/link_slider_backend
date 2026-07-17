@@ -35,15 +35,15 @@ func (s *gameServer) MovePlayer(ctx context.Context, req *testgen.MovePlayerRequ
 }
 
 func main() {
-	grpcServer := grpc.NewServer()
-	reflection.Register(grpcServer)
-
 	e := echo.New()
 	e.GET("/ping", func(c echo.Context) error {
 		return c.String(http.StatusOK, "pong")
 	})
 
 	e.Logger.Fatal(e.Start(":8080"))
+
+	grpcServer := grpc.NewServer()
+	reflection.Register(grpcServer)
 
 	// Register our generated GameService implementation
 	testgen.RegisterGameServiceServer(grpcServer, &gameServer{})
