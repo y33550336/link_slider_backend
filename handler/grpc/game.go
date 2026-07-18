@@ -13,7 +13,7 @@ type GameStore interface {
 
 type GameHandler struct {
 	store GameStore
-	*pb.UnimplementedGameServiceServer
+	pb.UnimplementedGameServiceServer
 }
 
 func NewGameHandler(store GameStore) *GameHandler {
