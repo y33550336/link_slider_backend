@@ -7,7 +7,7 @@ import (
 )
 
 type GameStore interface {
-	StorePing(ctx context.Context) (*pb.PingResponse, error)
+	StorePing(ctx context.Context, message string) (*pb.PingResponse, error)
 	StoreMovePlayer(ctx context.Context, playerID string, x, y int) (*pb.MovePlayerResponse, error)
 }
 
@@ -21,7 +21,7 @@ func NewGameHandler(store GameStore) *GameHandler {
 }
 
 func (h *GameHandler) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingResponse, error) {
-	return h.store.StorePing(ctx)
+	return h.store.StorePing(ctx, req.Message)
 }
 
 func (h *GameHandler) MovePlayer(ctx context.Context, req *pb.MovePlayerRequest) (*pb.MovePlayerResponse, error) {

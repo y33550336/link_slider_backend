@@ -19,7 +19,7 @@ func NewGameRepository(db *sqlx.DB) *GameRepository {
 	return &GameRepository{db: db}
 }
 
-func (r *GameRepository) StorePing(ctx context.Context) (*pb.PingResponse, error) {
+func (r *GameRepository) StorePing(ctx context.Context, message string) (*pb.PingResponse, error) {
 	// Implement the logic to ping the database or perform any necessary checks.
 	// For example, you can execute a simple query to check the connection.
 	if r.db == nil {
@@ -31,7 +31,7 @@ func (r *GameRepository) StorePing(ctx context.Context) (*pb.PingResponse, error
 		return nil, err
 	}
 
-	return &pb.PingResponse{}, nil
+	return &pb.PingResponse{Message: message}, nil
 }
 
 func (r *GameRepository) StoreMovePlayer(ctx context.Context, playerID string, x, y int) (*pb.MovePlayerResponse, error) {
